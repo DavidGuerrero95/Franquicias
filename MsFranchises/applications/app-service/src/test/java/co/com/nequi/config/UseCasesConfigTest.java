@@ -1,6 +1,10 @@
 package co.com.nequi.config;
 
-import co.com.nequi.usecase.product.RetrieveProductDetailUseCase;
+import co.com.nequi.model.branch.gateways.BranchGateway;
+import co.com.nequi.model.franchise.gateways.FranchiseGateway;
+import co.com.nequi.model.product.gateways.ProductGateway;
+import co.com.nequi.usecase.branch.CreateBranchUseCase;
+import co.com.nequi.usecase.branch.RenameBranchUseCase;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -39,9 +43,20 @@ public class UseCasesConfigTest {
         }
 
         @Bean
-        public RetrieveProductDetailUseCase retrieveProductDetailUseCase() {
-            return Mockito.mock(RetrieveProductDetailUseCase.class);
+        FranchiseGateway franchiseGateway() {
+            return Mockito.mock(FranchiseGateway.class);
         }
+
+        @Bean
+        BranchGateway branchGateway() {
+            return Mockito.mock(BranchGateway.class);
+        }
+
+        @Bean
+        ProductGateway productGateway() {
+            return Mockito.mock(ProductGateway.class);
+        }
+
     }
 
     static class MyUseCase {

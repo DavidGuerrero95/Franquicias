@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(':commons')
+    implementation 'org.springframework:spring-context'
+    implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+
+    implementation platform("software.amazon.awssdk:bom:2.34.0")
+    implementation "software.amazon.awssdk:secretsmanager"
+}

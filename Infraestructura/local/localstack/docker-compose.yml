@@ -1,0 +1,19 @@
+services:
+  localstack:
+    image: localstack/localstack:3
+    container_name: msfranchises-localstack
+    restart: unless-stopped
+    environment:
+      SERVICES: "secretsmanager"
+      DEFAULT_REGION: "us-east-1"
+      DEBUG: "0"
+      TZ: "America/Bogota"
+    ports:
+      - "4566:4566"
+    volumes:
+      - ./localstack-init:/etc/localstack/init/ready.d:ro
+
+networks:
+  default:
+    external: true
+    name: santinet
