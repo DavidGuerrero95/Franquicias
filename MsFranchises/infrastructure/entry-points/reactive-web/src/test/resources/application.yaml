@@ -1,0 +1,6 @@
+entry-points:
+  reactive-web:
+    consult-path-base: /ms-franchises/api/v1/
+    productDetail: "products/detail"
+    requiredHeaders:
+      general: message-id,content-type,accept

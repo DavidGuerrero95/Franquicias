@@ -1,0 +1,62 @@
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    encoding:
+      charset: "UTF-8"
+      force: true
+  error:
+    include-message: always
+    include-binding-errors: always
+spring:
+  application:
+    name: "${APP_NAME:MsFranchises}"
+  devtools:
+    add-properties: false
+  jackson:
+    default-property-inclusion: "NON_NULL"
+  main:
+    banner-mode: console
+management:
+  health:
+    probes:
+      enabled: true
+  endpoint:
+    health:
+      show-details: "${SHOW-DETAILS:always}"
+      enabled: true
+      cache:
+        time-to-live: "10s"
+  endpoints:
+    web:
+      base-path: "${PATH_BASE:/ms-franchises/api/v1/}"
+      path-mapping:
+        health: "health"
+        liveness: "liveness"
+        readiness: "readiness"
+      exposure:
+        include: "health, liveness, readiness"
+springdoc:
+  version: 1.0.0
+  api-docs:
+    path: ${PATH_BASE:/ms-franchises/api/v1/}api-docs
+  swagger-ui:
+    path: ${PATH_BASE:/ms-franchises/api/v1/}swagger.html
+    disable-swagger-default-url: true
+    urls:
+      - name: MsFranchises
+        url: ${PATH_BASE:/ms-franchises/api/v1/}api-docs
+    urlsPrimaryName: MsFranchises
+
+entry-points:
+  reactive-web:
+    consult-path-base: "${PATH_BASE:/ms-franchises/api/v1/}"
+    productDetail: "franchises/detail"
+    requiredHeaders:
+      general: "${REQUIRED_HEADERS_GENERAL:message-id}"
+    config:
+      allowedHost: "${ALLOWED_HOST:https://www.nequi.com.co,http://localhost:4200}"
+logging:
+  masked-fields: "${LOGGING_MASKED_FIELDS:authorization,accessToken,password,refreshToken,creditCard,number,serialNumber,clientSecret}"
+  level:
+    org.springframework.web: "${LOG4J_LEVEL:INFO}"
+    co.com.nequi: "${LOG4J_LEVEL:INFO}"

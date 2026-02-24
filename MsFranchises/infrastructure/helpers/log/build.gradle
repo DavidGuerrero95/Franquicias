@@ -1,0 +1,14 @@
+dependencies {
+    implementation project(':model')
+    implementation 'org.springframework:spring-context'
+    implementation 'org.springframework:spring-web'
+    implementation 'org.springframework:spring-webflux'
+    implementation 'org.slf4j:slf4j-api:2.0.16'
+    implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    implementation "jakarta.annotation:jakarta.annotation-api"
+    testImplementation "ch.qos.logback:logback-classic:${logBackCore}"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
