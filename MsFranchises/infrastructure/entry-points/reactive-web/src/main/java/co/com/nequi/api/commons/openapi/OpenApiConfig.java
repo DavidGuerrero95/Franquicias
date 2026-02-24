@@ -13,11 +13,10 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI(@Value("${springdoc.version}") String appVersion) {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Microservicio Productos")
+                        .title("Microservicio Franquicias")
                         .version(appVersion)
-                        .description("Microservicio que permite consultar productos dentro del portal.")
+                        .description("APIs para gestionar franquicias, sucursales y productos.")
                         .termsOfService("http://swagger.io/terms/")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }
-
 }

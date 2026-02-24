@@ -1,0 +1,41 @@
+USE franchises;
+
+CREATE TABLE IF NOT EXISTS franchise (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  name VARCHAR(120) NOT NULL,
+  created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_franchise_name (name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS branch (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  franchise_id BIGINT UNSIGNED NOT NULL,
+  name VARCHAR(120) NOT NULL,
+  created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+  PRIMARY KEY (id),
+  CONSTRAINT fk_branch_franchise
+    FOREIGN KEY (franchise_id) REFERENCES franchise (id)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+  UNIQUE KEY uk_branch_franchise_name (franchise_id, name),
+  KEY ix_branch_franchise (franchise_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS product (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  branch_id BIGINT UNSIGNED NOT NULL,
+  name VARCHAR(120) NOT NULL,
+  stock INT NOT NULL,
+  created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+  PRIMARY KEY (id),
+  CONSTRAINT fk_product_branch
+    FOREIGN KEY (branch_id) REFERENCES branch (id)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+  UNIQUE KEY uk_product_branch_name (branch_id, name),
+  KEY ix_product_branch (branch_id),
+  KEY ix_product_stock (stock),
+  CONSTRAINT ck_product_stock_non_negative CHECK (stock >= 0)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

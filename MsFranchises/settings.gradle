@@ -24,3 +24,7 @@ include ':log'
 project(':log').projectDir = file('./infrastructure/helpers/log')
 include ':commons'
 project(':commons').projectDir = file('./infrastructure/helpers/commons')
+include ':mysql-repository'
+project(':mysql-repository').projectDir = file('./infrastructure/driven-adapters/mysql-repository')
+include ':secrets-manager'
+project(':secrets-manager').projectDir = file('./infrastructure/helpers/secrets-manager')
