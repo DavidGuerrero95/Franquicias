@@ -14,7 +14,6 @@ SECRET_JSON=$(cat <<EOF
 EOF
 )
 
-# Si no existe, lo crea. Si existe, lo actualiza.
 if awslocal secretsmanager describe-secret --secret-id "${SECRET_NAME}" >/dev/null 2>&1; then
   awslocal secretsmanager put-secret-value \
     --secret-id "${SECRET_NAME}" \
