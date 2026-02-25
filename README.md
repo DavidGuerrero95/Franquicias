@@ -1,4 +1,4 @@
-# Franquicias - NEQUI Technical Test (MsFranchises)
+# Franquicias - NEQUI (MsFranchises)
 
 Proyecto para la prueba técnica: Microservicio **MsFranchises** (Spring WebFlux + R2DBC + MySQL) con manejo de secretos vía **AWS Secrets Manager** simulado con **LocalStack** en local y BD desplegada en nube **AWS RDS**.
 
