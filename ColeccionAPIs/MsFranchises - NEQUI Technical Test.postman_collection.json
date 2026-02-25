@@ -1,0 +1,551 @@
+{
+  "info": {
+    "_postman_id": "67112bc0-33ee-45f3-89b8-7448c2199626",
+    "name": "MsFranchises - NEQUI Technical Test",
+    "description": "Colección para probar MsFranchises (Spring WebFlux + R2DBC MySQL). Incluye CRUD y reporte Top Stock.\n\nBasePath por defecto: /ms-franchises/api/v1\nHeader obligatorio: message-id",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "14923156",
+    "_collection_link": "https://go.postman.co/collection/14923156-67112bc0-33ee-45f3-89b8-7448c2199626?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}",
+                "disabled": true
+              },
+              {
+                "key": "accept",
+                "value": "application/json",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Liveness",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/health/liveness",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "health",
+                "liveness"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Readiness",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/health/readiness",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "health",
+                "readiness"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Franchise",
+      "item": [
+        {
+          "name": "Create Franchise",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', function () {",
+                  "  pm.expect(pm.response.code).to.equal(201);",
+                  "});",
+                  "try {",
+                  "  const json = pm.response.json();",
+                  "  if (json && json.data && json.data.id) {",
+                  "    pm.collectionVariables.set('franchiseId', String(json.data.id));",
+                  "  }",
+                  "} catch (e) {}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"name\": \"Franquicia Demo\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/franchises",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "franchises"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rename Franchise",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"name\": \"Franquicia Renombrada\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/franchises/{{franchiseId}}/name",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "franchises",
+                "{{franchiseId}}",
+                "name"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Top Stock by Franchise",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/franchises/{{franchiseId}}/products/top-stock",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "franchises",
+                "{{franchiseId}}",
+                "products",
+                "top-stock"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Franchises",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/franchises/tree?pageNumber=1&pageSize=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "franchises",
+                "tree"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Branch",
+      "item": [
+        {
+          "name": "Create Branch",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', function () {",
+                  "  pm.expect(pm.response.code).to.equal(201);",
+                  "});",
+                  "try {",
+                  "  const json = pm.response.json();",
+                  "  if (json && json.data && json.data.id) {",
+                  "    pm.collectionVariables.set('branchId', String(json.data.id));",
+                  "  }",
+                  "} catch (e) {}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"name\": \"Sucursal Centro\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/franchises/{{franchiseId}}/branches",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "franchises",
+                "{{franchiseId}}",
+                "branches"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rename Branch",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"name\": \"Sucursal centro modificada\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/branches/{{branchId}}/name",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "branches",
+                "{{branchId}}",
+                "name"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "item": [
+        {
+          "name": "Create Product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', function () {",
+                  "  pm.expect(pm.response.code).to.equal(201);",
+                  "});",
+                  "try {",
+                  "  const json = pm.response.json();",
+                  "  if (json && json.data && json.data.id) {",
+                  "    pm.collectionVariables.set('productId', String(json.data.id));",
+                  "  }",
+                  "} catch (e) {}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"name\": \"Producto A\",\n    \"stock\": 10\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/branches/{{branchId}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "branches",
+                "{{branchId}}",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rename Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"name\": \"Producto D Renombrado\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/products/{{productId}}/name",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "products",
+                "{{productId}}",
+                "name"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Product Stock",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"stock\": 25\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/products/{{productId}}/stock",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "products",
+                "{{productId}}",
+                "stock"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "message-id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{basePath}}/branches/{{branchId}}/products/{{productId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{basePath}}",
+                "branches",
+                "{{branchId}}",
+                "products",
+                "{{productId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "basePath",
+      "value": "ms-franchises/api/v1"
+    },
+    {
+      "key": "franchiseId",
+      "value": ""
+    },
+    {
+      "key": "branchId",
+      "value": ""
+    },
+    {
+      "key": "productId",
+      "value": ""
+    }
+  ]
+}
