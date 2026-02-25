@@ -39,7 +39,7 @@ Además:
 ```bash
 git clone https://github.com/DavidGuerrero95/Franquicias.git
 cd Franquicias
-````
+```
 
 ### Nota: se requeririea crear un archivo `.env` en la raíz
 
