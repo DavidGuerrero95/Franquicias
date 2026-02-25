@@ -6,7 +6,7 @@ La base de datos se ejecuta en **AWS RDS MySQL** (creada con CloudFormation) y e
 
 ---
 
-## 🧱 Arquitectura (modo demo)
+## 🧱 Arquitectura
 
 - **MsFranchises (local)**: contenedor Docker con la API.
 - **LocalStack (local)**: simula AWS Secrets Manager.
