@@ -9,37 +9,6 @@ services:
       - ./Infraestructura/local/localstack/localstack-init:/localstack-init
     command: ["sh","-c","chmod +x /localstack-init/*.sh 2>/dev/null || true"]
 
-  mysql:
-    image: mysql:8.4
-    container_name: msfranchises-mysql
-    restart: unless-stopped
-    command:
-      [
-        "mysqld",
-        "--character-set-server=utf8mb4",
-        "--collation-server=utf8mb4_0900_ai_ci",
-        "--sql_mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
-      ]
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-admin}
-      MYSQL_DATABASE: franchises
-      MYSQL_USER: franchises_user
-      MYSQL_PASSWORD: ${MYSQL_APP_PASSWORD:-admin}
-      TZ: "America/Bogota"
-    ports:
-      - "3307:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - ./Infraestructura/local/mysql/mysql-scripts:/docker-entrypoint-initdb.d:ro
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p${MYSQL_ROOT_PASSWORD:-admin}"]
-      interval: 10s
-      timeout: 5s
-      retries: 12
-      start_period: 25s
-    networks:
-      - santinet
-
   localstack:
     image: localstack/localstack:3
     container_name: msfranchises-localstack
@@ -54,11 +23,11 @@ services:
       TZ: "America/Bogota"
 
       DB_SECRET_NAME: "ms-franchises/mysql"
-      MYSQL_HOST: "mysql"
+      MYSQL_HOST: "${RDS_HOST}"
       MYSQL_PORT: "3306"
       MYSQL_DB: "franchises"
       MYSQL_USER: "franchises_user"
-      MYSQL_PASSWORD: ${MYSQL_APP_PASSWORD:-admin}
+      MYSQL_PASSWORD: "${RDS_PASSWORD}"
     ports:
       - "4566:4566"
     volumes:
@@ -80,8 +49,6 @@ services:
     container_name: msfranchises-app
     restart: unless-stopped
     depends_on:
-      mysql:
-        condition: service_healthy
       localstack:
         condition: service_healthy
     environment:
@@ -102,7 +69,3 @@ services:
 
 networks:
   santinet: {}
-
-volumes:
-  mysql_data:
-    name: msfranchises_mysql_data
