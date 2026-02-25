@@ -18,7 +18,9 @@ public final class FranchiseCreateOpenApi {
     private static final String SUMMARY = "Agregar una nueva franquicia";
     private static final String DESCRIPTION = "Crea una franquicia con nombre único";
 
-    private FranchiseCreateOpenApi() { }
+    private FranchiseCreateOpenApi() {
+        // Not instance constructor
+    }
 
     public static Consumer<Builder> getOpenAPI() {
         return ops -> ops.tag(TAG)

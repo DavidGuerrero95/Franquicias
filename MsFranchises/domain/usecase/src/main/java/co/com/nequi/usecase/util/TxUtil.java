@@ -3,7 +3,9 @@ package co.com.nequi.usecase.util;
 import co.com.nequi.dto.transaction.Transaction;
 
 public final class TxUtil {
-    private TxUtil() { }
+    private TxUtil() {
+        // Not instance constructor
+    }
 
     public static Transaction next(Transaction base, Object request) {
         return Transaction.builder()

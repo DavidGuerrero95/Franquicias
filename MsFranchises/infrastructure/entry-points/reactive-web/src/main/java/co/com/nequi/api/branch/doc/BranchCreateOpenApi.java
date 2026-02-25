@@ -2,7 +2,6 @@ package co.com.nequi.api.branch.doc;
 
 import co.com.nequi.api.branch.dto.BranchRS;
 import co.com.nequi.api.commons.openapi.OpenApiDoc;
-import co.com.nequi.commons.constants.Constants;
 import org.springdoc.core.fn.builders.operation.Builder;
 import org.springframework.http.MediaType;
 
@@ -19,7 +18,9 @@ public final class BranchCreateOpenApi {
     private static final String SUMMARY = "Agregar sucursal a una franquicia";
     private static final String DESCRIPTION = "Crea una sucursal asociada a una franquicia existente";
 
-    private BranchCreateOpenApi() { }
+    private BranchCreateOpenApi() {
+        // Not instance constructor
+    }
 
     public static Consumer<Builder> getOpenAPI() {
         return ops -> ops.tag(TAG)

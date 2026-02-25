@@ -3,7 +3,6 @@ package co.com.nequi.usecase.franchise;
 import co.com.nequi.commons.exception.BusinessException;
 import co.com.nequi.commons.exception.messages.BusinessExceptionEnum;
 import co.com.nequi.dto.transaction.Transaction;
-import co.com.nequi.model.franchise.Franchise;
 import co.com.nequi.model.franchise.command.FranchiseCreate;
 import co.com.nequi.model.franchise.gateways.FranchiseGateway;
 import co.com.nequi.model.franchise.query.FranchiseNameQuery;
@@ -30,9 +29,10 @@ public class CreateFranchiseUseCase {
                 .map(out -> {
                     out.setStatus(true);
                     out.setStatusCode(201);
-                    out.setResponse((Franchise) out.getResponse());
+                    out.setResponse(out.getResponse());
                     return out;
                 })
                 .onErrorMap(UseCaseErrorMapper::map);
     }
+
 }

@@ -20,6 +20,15 @@ import java.util.Optional;
 )
 public interface ProductMapper {
 
+    private static MetaDataResponse meta(Transaction tx) {
+        var messageId = Optional.ofNullable(tx.getHeaders()).map(h -> h.get("message-id")).orElse(null);
+        return MetaDataResponse.builder()
+                .messageId(messageId)
+                .requestDateTime(LocalDateTime.now().toString())
+                .applicationId("MsFranchises")
+                .build();
+    }
+
     default ProductCreate toCreate(Long branchId, String name, Integer stock) {
         return new ProductCreate(branchId, name, stock);
     }
@@ -32,17 +41,9 @@ public interface ProductMapper {
         var product = (Product) tx.getResponse();
         return new ProductRS(
                 meta(tx),
-                product == null ? null : new ProductRS.Data(product.id(), product.branchId(), product.name(), product.stock()),
+                product == null ? null : new ProductRS.Data(product.id(), product.branchId(),
+                        product.name(), product.stock()),
                 null
         );
-    }
-
-    private static MetaDataResponse meta(Transaction tx) {
-        var messageId = Optional.ofNullable(tx.getHeaders()).map(h -> h.get("message-id")).orElse(null);
-        return MetaDataResponse.builder()
-                .messageId(messageId)
-                .requestDateTime(LocalDateTime.now().toString())
-                .applicationId("MsFranchises")
-                .build();
     }
 }

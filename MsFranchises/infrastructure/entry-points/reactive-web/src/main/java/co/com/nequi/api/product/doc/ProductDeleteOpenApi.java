@@ -14,7 +14,9 @@ public final class ProductDeleteOpenApi {
     private static final String SUMMARY = "Eliminar producto de una sucursal";
     private static final String DESCRIPTION = "Elimina un producto existente de una sucursal";
 
-    private ProductDeleteOpenApi() { }
+    private ProductDeleteOpenApi() {
+        // Not instance constructor
+    }
 
     public static Consumer<Builder> getOpenAPI() {
         return ops -> ops.tag(TAG)

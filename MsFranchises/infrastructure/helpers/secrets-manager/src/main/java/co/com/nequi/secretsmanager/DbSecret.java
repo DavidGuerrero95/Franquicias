@@ -6,4 +6,5 @@ public record DbSecret(
         String dbname,
         String username,
         String password
-) { }
+) {
+}

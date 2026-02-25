@@ -9,7 +9,7 @@ import java.util.List;
 public record BranchRS(
         MetaDataResponse meta,
         Data data,
-        @JsonInclude(JsonInclude.Include.NON_EMPTY) List<ErrorRes.Data> errors
-) {
-    public record Data(Long id, Long franchiseId, String name) { }
+        @JsonInclude(JsonInclude.Include.NON_EMPTY) List<ErrorRes.Data> errors) {
+    public record Data(Long id, Long franchiseId, String name) {
+    }
 }

@@ -11,4 +11,5 @@ public record FranchiseData(
         String name,
         Instant createdAt,
         Instant updatedAt
-) { }
+) {
+}

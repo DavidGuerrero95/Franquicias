@@ -18,16 +18,12 @@ public class BranchRouterRest {
     @Bean
     public RouterFunction<ServerResponse> routerFunctionBranch(BranchHandler handler) {
         return SpringdocRouteBuilder.route()
-                .POST(
-                        props.consultPathBase().concat(props.branchCreate()),
+                .POST(props.consultPathBase().concat(props.branchCreate()),
                         handler::create,
-                        BranchCreateOpenApi.getOpenAPI()
-                )
-                .PUT(
-                        props.consultPathBase().concat(props.branchRename()),
+                        BranchCreateOpenApi.getOpenAPI())
+                .PUT(props.consultPathBase().concat(props.branchRename()),
                         handler::rename,
-                        BranchRenameOpenApi.getOpenAPI()
-                )
+                        BranchRenameOpenApi.getOpenAPI())
                 .build();
     }
 }

@@ -24,6 +24,15 @@ import java.util.Optional;
 )
 public interface FranchiseMapper {
 
+    private static MetaDataResponse meta(Transaction tx) {
+        var messageId = Optional.ofNullable(tx.getHeaders()).map(h -> h.get("message-id")).orElse(null);
+        return MetaDataResponse.builder()
+                .messageId(messageId)
+                .requestDateTime(LocalDateTime.now().toString())
+                .applicationId("MsFranchises")
+                .build();
+    }
+
     @Mapping(target = "name", source = "data.name")
     FranchiseCreate toModel(FranchiseCreateRQ rq);
 
@@ -44,14 +53,5 @@ public interface FranchiseMapper {
                 i.branchId(), i.branchName(), i.productId(), i.productName(), i.stock()
         )).toList();
         return new TopStockRS(meta(tx), data, null);
-    }
-
-    private static MetaDataResponse meta(Transaction tx) {
-        var messageId = Optional.ofNullable(tx.getHeaders()).map(h -> h.get("message-id")).orElse(null);
-        return MetaDataResponse.builder()
-                .messageId(messageId)
-                .requestDateTime(LocalDateTime.now().toString())
-                .applicationId("MsFranchises")
-                .build();
     }
 }

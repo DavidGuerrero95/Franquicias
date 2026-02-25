@@ -9,4 +9,5 @@ public record AwsSecretsManagerProperties(
         String endpoint,
         String accessKeyId,
         String secretAccessKey
-) { }
+) {
+}

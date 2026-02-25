@@ -15,11 +15,20 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 import java.time.Duration;
 
-import static io.r2dbc.spi.ConnectionFactoryOptions.*;
+import static io.r2dbc.spi.ConnectionFactoryOptions.DATABASE;
+import static io.r2dbc.spi.ConnectionFactoryOptions.DRIVER;
+import static io.r2dbc.spi.ConnectionFactoryOptions.HOST;
+import static io.r2dbc.spi.ConnectionFactoryOptions.PASSWORD;
+import static io.r2dbc.spi.ConnectionFactoryOptions.PORT;
+import static io.r2dbc.spi.ConnectionFactoryOptions.USER;
 
 @Configuration
 @EnableR2dbcRepositories(basePackages = "co.com.nequi.r2dbc")
 public class MySQLConnectionPool {
+
+    private static Duration nonNull(Duration value, Duration fallback) {
+        return value == null ? fallback : value;
+    }
 
     @Bean
     public ConnectionFactory connectionFactory(SecretsManager secretsManager, MySQLConnectionProperties props) {
@@ -51,7 +60,4 @@ public class MySQLConnectionPool {
         }
     }
 
-    private static Duration nonNull(Duration value, Duration fallback) {
-        return value == null ? fallback : value;
-    }
 }

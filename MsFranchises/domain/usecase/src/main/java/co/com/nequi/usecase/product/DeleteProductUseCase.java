@@ -38,4 +38,5 @@ public class DeleteProductUseCase {
                 })
                 .onErrorMap(UseCaseErrorMapper::map);
     }
+
 }

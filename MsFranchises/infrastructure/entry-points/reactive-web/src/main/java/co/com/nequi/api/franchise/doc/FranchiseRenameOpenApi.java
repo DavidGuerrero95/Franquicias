@@ -19,7 +19,9 @@ public final class FranchiseRenameOpenApi {
     private static final String SUMMARY = "Actualizar nombre de una franquicia";
     private static final String DESCRIPTION = "Actualiza el nombre de una franquicia existente";
 
-    private FranchiseRenameOpenApi() { }
+    private FranchiseRenameOpenApi() {
+        // Not instance constructor
+    }
 
     public static Consumer<Builder> getOpenAPI() {
         return ops -> ops.tag(TAG)

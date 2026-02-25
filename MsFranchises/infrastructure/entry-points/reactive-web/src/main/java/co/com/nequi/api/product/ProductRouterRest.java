@@ -20,26 +20,18 @@ public class ProductRouterRest {
     @Bean
     public RouterFunction<ServerResponse> routerFunctionProduct(ProductHandler handler) {
         return SpringdocRouteBuilder.route()
-                .POST(
-                        props.consultPathBase().concat(props.productCreate()),
+                .POST(props.consultPathBase().concat(props.productCreate()),
                         handler::create,
-                        ProductCreateOpenApi.getOpenAPI()
-                )
-                .DELETE(
-                        props.consultPathBase().concat(props.productDelete()),
+                        ProductCreateOpenApi.getOpenAPI())
+                .DELETE(props.consultPathBase().concat(props.productDelete()),
                         handler::delete,
-                        ProductDeleteOpenApi.getOpenAPI()
-                )
-                .PUT(
-                        props.consultPathBase().concat(props.productStockUpdate()),
+                        ProductDeleteOpenApi.getOpenAPI())
+                .PUT(props.consultPathBase().concat(props.productStockUpdate()),
                         handler::updateStock,
-                        ProductStockUpdateOpenApi.getOpenAPI()
-                )
-                .PUT(
-                        props.consultPathBase().concat(props.productRename()),
+                        ProductStockUpdateOpenApi.getOpenAPI())
+                .PUT(props.consultPathBase().concat(props.productRename()),
                         handler::rename,
-                        ProductRenameOpenApi.getOpenAPI()
-                )
+                        ProductRenameOpenApi.getOpenAPI())
                 .build();
     }
 }

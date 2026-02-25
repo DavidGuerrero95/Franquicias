@@ -9,7 +9,9 @@ import java.net.URI;
 
 public final class SecretsManagerClientFactory {
 
-    private SecretsManagerClientFactory() { }
+    private SecretsManagerClientFactory() {
+        // Not instance constructor
+    }
 
     public static SecretsManagerClient build(AwsSecretsManagerProperties props) {
         var builder = SecretsManagerClient.builder()

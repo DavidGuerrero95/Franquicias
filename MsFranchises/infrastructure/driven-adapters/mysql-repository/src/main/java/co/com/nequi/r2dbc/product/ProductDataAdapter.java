@@ -116,7 +116,13 @@ public class ProductDataAdapter extends AbstractReactiveAdapterOperations<Produc
     public Mono<Transaction> topStockByFranchise(Transaction tx) {
         var q = (TopStockQuery) tx.getRequest();
         return repository.findTopStockByFranchiseId(q.franchiseId())
-                .map(row -> new TopStockItem(row.getBranchId(), row.getBranchName(), row.getProductId(), row.getProductName(), row.getStock()))
+                .map(row -> new TopStockItem(
+                        row.branch_id(),
+                        row.branch_name(),
+                        row.product_id(),
+                        row.product_name(),
+                        row.stock()
+                ))
                 .collectList()
                 .map(list -> {
                     tx.setResponse(list);
