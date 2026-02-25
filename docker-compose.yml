@@ -101,8 +101,7 @@ services:
       - santinet
 
 networks:
-  santinet:
-    name: santinet
+  santinet: {}
 
 volumes:
   mysql_data:
