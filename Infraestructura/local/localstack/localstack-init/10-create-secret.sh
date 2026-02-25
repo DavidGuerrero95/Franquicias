@@ -10,7 +10,7 @@ MYSQL_USER="${MYSQL_USER:-franchises_user}"
 MYSQL_PASSWORD="${MYSQL_PASSWORD:-admin}"
 
 SECRET_JSON=$(cat <<EOF
-{"host":"${MYSQL_HOST}","port":${MYSQL_PORT},"dbname":"${MYSQL_DB}","username":"${MYSQL_USER}","password":"${MYSQL_PASS>
+{"host":"${MYSQL_HOST}","port":${MYSQL_PORT},"dbname":"${MYSQL_DB}","username":"${MYSQL_USER}","password":"${MYSQL_PASSWORD}"}
 EOF
 )
 
