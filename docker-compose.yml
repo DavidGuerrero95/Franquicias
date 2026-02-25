@@ -1,0 +1,109 @@
+name: franquicias-local
+
+services:
+  init-perms:
+    image: alpine:3.20
+    container_name: msfranchises-init-perms
+    restart: "no"
+    volumes:
+      - ./Infraestructura/local/localstack/localstack-init:/localstack-init
+    command: ["sh","-c","chmod +x /localstack-init/*.sh 2>/dev/null || true"]
+
+  mysql:
+    image: mysql:8.4
+    container_name: msfranchises-mysql
+    restart: unless-stopped
+    command:
+      [
+        "mysqld",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_0900_ai_ci",
+        "--sql_mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+      ]
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-admin}
+      MYSQL_DATABASE: franchises
+      MYSQL_USER: franchises_user
+      MYSQL_PASSWORD: ${MYSQL_APP_PASSWORD:-admin}
+      TZ: "America/Bogota"
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./Infraestructura/local/mysql/mysql-scripts:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p${MYSQL_ROOT_PASSWORD:-admin}"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 25s
+    networks:
+      - santinet
+
+  localstack:
+    image: localstack/localstack:3
+    container_name: msfranchises-localstack
+    restart: unless-stopped
+    depends_on:
+      init-perms:
+        condition: service_completed_successfully
+    environment:
+      SERVICES: "secretsmanager"
+      DEFAULT_REGION: "us-east-1"
+      DEBUG: "0"
+      TZ: "America/Bogota"
+
+      DB_SECRET_NAME: "ms-franchises/mysql"
+      MYSQL_HOST: "mysql"
+      MYSQL_PORT: "3306"
+      MYSQL_DB: "franchises"
+      MYSQL_USER: "franchises_user"
+      MYSQL_PASSWORD: ${MYSQL_APP_PASSWORD:-admin}
+    ports:
+      - "4566:4566"
+    volumes:
+      - ./Infraestructura/local/localstack/localstack-init:/etc/localstack/init/ready.d
+    healthcheck:
+      test: ["CMD", "sh", "-c", "curl -fsS http://localhost:4566/_localstack/health | grep -q '\"secretsmanager\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    networks:
+      - santinet
+
+  msfranchises:
+    image: msfranchises:local
+    build:
+      context: ./MSFranchises
+      dockerfile: deployment/Dockerfile
+    container_name: msfranchises-app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      localstack:
+        condition: service_healthy
+    environment:
+      TZ: "America/Bogota"
+      SERVER_PORT: "8080"
+      PATH_BASE: "/ms-franchises/api/v1/"
+      SHOW_DETAILS: "always"
+
+      AWS_REGION: "us-east-1"
+      AWS_SM_ENDPOINT: "http://localstack:4566"
+      AWS_ACCESS_KEY_ID: "test"
+      AWS_SECRET_ACCESS_KEY: "test"
+      DB_SECRET_NAME: "ms-franchises/mysql"
+    ports:
+      - "8080:8080"
+    networks:
+      - santinet
+
+networks:
+  santinet:
+    name: santinet
+
+volumes:
+  mysql_data:
+    name: msfranchises_mysql_data
