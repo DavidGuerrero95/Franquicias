@@ -75,7 +75,7 @@ services:
   msfranchises:
     image: msfranchises:local
     build:
-      context: ./MSFranchises
+      context: ./MsFranchises
       dockerfile: deployment/Dockerfile
     container_name: msfranchises-app
     restart: unless-stopped
