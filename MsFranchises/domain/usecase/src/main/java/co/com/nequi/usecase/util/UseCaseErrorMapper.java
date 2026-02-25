@@ -5,7 +5,9 @@ import co.com.nequi.commons.exception.TechnicalException;
 import co.com.nequi.commons.exception.messages.TechnicalExceptionEnum;
 
 public final class UseCaseErrorMapper {
-    private UseCaseErrorMapper() { }
+    private UseCaseErrorMapper() {
+        // Not instance constructor
+    }
 
     public static Throwable map(Throwable error) {
         if (error instanceof BusinessException || error instanceof TechnicalException) {

@@ -19,7 +19,9 @@ public final class BranchRenameOpenApi {
     private static final String SUMMARY = "Actualizar nombre de una sucursal";
     private static final String DESCRIPTION = "Actualiza el nombre de una sucursal existente";
 
-    private BranchRenameOpenApi() { }
+    private BranchRenameOpenApi() {
+        // Not instance constructor
+    }
 
     public static Consumer<Builder> getOpenAPI() {
         return ops -> ops.tag(TAG)

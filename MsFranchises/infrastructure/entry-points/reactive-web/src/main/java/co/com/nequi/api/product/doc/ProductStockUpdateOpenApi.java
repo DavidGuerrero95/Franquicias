@@ -19,7 +19,9 @@ public final class ProductStockUpdateOpenApi {
     private static final String SUMMARY = "Modificar stock de un producto";
     private static final String DESCRIPTION = "Actualiza el stock de un producto existente";
 
-    private ProductStockUpdateOpenApi() { }
+    private ProductStockUpdateOpenApi() {
+        // Not instance constructor
+    }
 
     public static Consumer<Builder> getOpenAPI() {
         return ops -> ops.tag(TAG)

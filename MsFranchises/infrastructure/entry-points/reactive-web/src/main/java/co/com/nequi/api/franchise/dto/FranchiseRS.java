@@ -9,7 +9,7 @@ import java.util.List;
 public record FranchiseRS(
         MetaDataResponse meta,
         Data data,
-        @JsonInclude(JsonInclude.Include.NON_EMPTY) List<ErrorRes.Data> errors
-) {
-    public record Data(Long id, String name) { }
+        @JsonInclude(JsonInclude.Include.NON_EMPTY) List<ErrorRes.Data> errors) {
+    public record Data(Long id, String name) {
+    }
 }

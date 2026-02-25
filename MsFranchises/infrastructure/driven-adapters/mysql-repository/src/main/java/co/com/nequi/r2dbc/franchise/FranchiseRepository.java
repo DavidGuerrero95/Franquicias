@@ -5,7 +5,8 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Mono;
 
 public interface FranchiseRepository extends ReactiveCrudRepository<FranchiseData, Long>,
-        ReactiveQueryByExampleExecutor<FranchiseData> {
+        ReactiveQueryByExampleExecutor<FranchiseData>,
+        FranchiseTreeRepository {
 
     Mono<FranchiseData> findByName(String name);
 }

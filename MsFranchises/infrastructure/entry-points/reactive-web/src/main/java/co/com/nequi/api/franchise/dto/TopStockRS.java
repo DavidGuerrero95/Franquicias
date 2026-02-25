@@ -8,9 +8,8 @@ import java.util.List;
 
 public record TopStockRS(
         MetaDataResponse meta,
-        @JsonInclude(JsonInclude.Include.NON_EMPTY) List<Data> data,
-        @JsonInclude(JsonInclude.Include.NON_EMPTY) List<ErrorRes.Data> errors
-) {
+        List<Data> data,
+        @JsonInclude(JsonInclude.Include.NON_EMPTY) List<ErrorRes.Data> errors) {
     public record Data(
             Long branchId,
             String branchName,

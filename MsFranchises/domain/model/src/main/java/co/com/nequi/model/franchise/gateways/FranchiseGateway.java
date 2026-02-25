@@ -5,7 +5,10 @@ import reactor.core.publisher.Mono;
 
 public interface FranchiseGateway {
     Mono<Transaction> create(Transaction transaction);
+
     Mono<Transaction> rename(Transaction transaction);
+
     Mono<Transaction> findById(Transaction transaction);
+
     Mono<Transaction> findByName(Transaction transaction);
 }

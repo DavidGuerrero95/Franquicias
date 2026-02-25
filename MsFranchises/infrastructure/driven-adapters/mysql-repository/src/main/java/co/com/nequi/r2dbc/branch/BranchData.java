@@ -13,4 +13,5 @@ public record BranchData(
         String name,
         Instant createdAt,
         Instant updatedAt
-) { }
+) {
+}

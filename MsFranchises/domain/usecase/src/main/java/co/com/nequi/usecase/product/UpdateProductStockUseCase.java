@@ -34,4 +34,5 @@ public class UpdateProductStockUseCase {
                 })
                 .onErrorMap(UseCaseErrorMapper::map);
     }
+
 }

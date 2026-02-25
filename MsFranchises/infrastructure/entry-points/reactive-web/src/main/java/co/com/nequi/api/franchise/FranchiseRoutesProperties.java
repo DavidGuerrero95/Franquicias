@@ -7,5 +7,7 @@ public record FranchiseRoutesProperties(
         String consultPathBase,
         String franchiseCreate,
         String franchiseRename,
-        String topStockByFranchise
-) { }
+        String topStockByFranchise,
+        String franchiseTree
+) {
+}

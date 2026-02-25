@@ -18,7 +18,9 @@ public final class ProductCreateOpenApi {
     private static final String SUMMARY = "Agregar producto a una sucursal";
     private static final String DESCRIPTION = "Crea un producto con stock inicial";
 
-    private ProductCreateOpenApi() { }
+    private ProductCreateOpenApi() {
+        // Not instance constructor
+    }
 
     public static Consumer<Builder> getOpenAPI() {
         return ops -> ops.tag(TAG)

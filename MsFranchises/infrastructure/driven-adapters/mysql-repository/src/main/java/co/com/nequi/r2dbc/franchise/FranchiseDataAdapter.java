@@ -15,7 +15,8 @@ import reactor.core.publisher.Mono;
 import java.time.Instant;
 
 @Repository
-public class FranchiseDataAdapter extends AbstractReactiveAdapterOperations<Franchise, FranchiseData, Long, FranchiseRepository>
+public class FranchiseDataAdapter
+        extends AbstractReactiveAdapterOperations<Franchise, FranchiseData, Long, FranchiseRepository>
         implements FranchiseGateway {
 
     public FranchiseDataAdapter(FranchiseRepository repository, ObjectMapper mapper) {

@@ -2,6 +2,7 @@ package co.com.nequi.api.franchise;
 
 import co.com.nequi.api.franchise.doc.FranchiseCreateOpenApi;
 import co.com.nequi.api.franchise.doc.FranchiseRenameOpenApi;
+import co.com.nequi.api.franchise.doc.FranchiseTreeOpenApi;
 import co.com.nequi.api.franchise.doc.TopStockOpenApi;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.webflux.core.fn.SpringdocRouteBuilder;
@@ -19,21 +20,18 @@ public class FranchiseRouterRest {
     @Bean
     public RouterFunction<ServerResponse> routerFunctionFranchise(FranchiseHandler handler) {
         return SpringdocRouteBuilder.route()
-                .POST(
-                        props.consultPathBase().concat(props.franchiseCreate()),
+                .POST(props.consultPathBase().concat(props.franchiseCreate()),
                         handler::create,
-                        FranchiseCreateOpenApi.getOpenAPI()
-                )
-                .PUT(
-                        props.consultPathBase().concat(props.franchiseRename()),
+                        FranchiseCreateOpenApi.getOpenAPI())
+                .PUT(props.consultPathBase().concat(props.franchiseRename()),
                         handler::rename,
-                        FranchiseRenameOpenApi.getOpenAPI()
-                )
-                .GET(
-                        props.consultPathBase().concat(props.topStockByFranchise()),
+                        FranchiseRenameOpenApi.getOpenAPI())
+                .GET(props.consultPathBase().concat(props.topStockByFranchise()),
                         handler::topStock,
-                        TopStockOpenApi.getOpenAPI()
-                )
+                        TopStockOpenApi.getOpenAPI())
+                .GET(props.consultPathBase().concat(props.franchiseTree()),
+                        handler::tree,
+                        FranchiseTreeOpenApi.getOpenAPI())
                 .build();
     }
 }

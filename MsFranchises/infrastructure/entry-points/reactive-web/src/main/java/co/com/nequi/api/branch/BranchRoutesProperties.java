@@ -7,4 +7,5 @@ public record BranchRoutesProperties(
         String consultPathBase,
         String branchCreate,
         String branchRename
-) { }
+) {
+}

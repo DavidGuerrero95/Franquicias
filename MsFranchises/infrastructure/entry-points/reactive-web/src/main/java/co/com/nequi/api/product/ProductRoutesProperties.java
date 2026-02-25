@@ -9,4 +9,5 @@ public record ProductRoutesProperties(
         String productDelete,
         String productStockUpdate,
         String productRename
-) { }
+) {
+}

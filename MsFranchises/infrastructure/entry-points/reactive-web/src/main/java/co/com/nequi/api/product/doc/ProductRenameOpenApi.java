@@ -19,7 +19,9 @@ public final class ProductRenameOpenApi {
     private static final String SUMMARY = "Actualizar nombre de un producto";
     private static final String DESCRIPTION = "Actualiza el nombre de un producto existente";
 
-    private ProductRenameOpenApi() { }
+    private ProductRenameOpenApi() {
+        // Not instance constructor
+    }
 
     public static Consumer<Builder> getOpenAPI() {
         return ops -> ops.tag(TAG)

@@ -43,7 +43,8 @@ public class BranchDataAdapter extends AbstractReactiveAdapterOperations<Branch,
         var now = Instant.now();
 
         return repository.findById(cmd.id())
-                .flatMap(current -> repository.save(new BranchData(current.id(), current.franchiseId(), cmd.name(), current.createdAt(), now)))
+                .flatMap(current -> repository.save(new BranchData(current.id(), current.franchiseId(),
+                        cmd.name(), current.createdAt(), now)))
                 .map(this::toEntity)
                 .map(saved -> {
                     tx.setResponse(saved);

@@ -6,4 +6,5 @@ public record TopStockItem(
         Long productId,
         String productName,
         Integer stock
-) { }
+) {
+}

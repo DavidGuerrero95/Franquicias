@@ -14,4 +14,5 @@ public record ProductData(
         Integer stock,
         Instant createdAt,
         Instant updatedAt
-) { }
+) {
+}

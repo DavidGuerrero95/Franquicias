@@ -5,7 +5,6 @@ import co.com.nequi.commons.exception.messages.BusinessExceptionEnum;
 import co.com.nequi.dto.transaction.Transaction;
 import co.com.nequi.model.branch.gateways.BranchGateway;
 import co.com.nequi.model.branch.query.BranchIdQuery;
-import co.com.nequi.model.product.Product;
 import co.com.nequi.model.product.command.ProductCreate;
 import co.com.nequi.model.product.gateways.ProductGateway;
 import co.com.nequi.model.product.query.ProductNameQuery;
@@ -40,7 +39,7 @@ public class CreateProductUseCase {
                 .map(out -> {
                     out.setStatus(true);
                     out.setStatusCode(201);
-                    out.setResponse((Product) out.getResponse());
+                    out.setResponse(out.getResponse());
                     return out;
                 })
                 .onErrorMap(UseCaseErrorMapper::map);

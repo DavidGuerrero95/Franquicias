@@ -19,6 +19,15 @@ import java.util.Optional;
 )
 public interface BranchMapper {
 
+    private static MetaDataResponse meta(Transaction tx) {
+        var messageId = Optional.ofNullable(tx.getHeaders()).map(h -> h.get("message-id")).orElse(null);
+        return MetaDataResponse.builder()
+                .messageId(messageId)
+                .requestDateTime(LocalDateTime.now().toString())
+                .applicationId("MsFranchises")
+                .build();
+    }
+
     default BranchCreate toCreate(Long franchiseId, String name) {
         return new BranchCreate(franchiseId, name);
     }
@@ -30,14 +39,5 @@ public interface BranchMapper {
                 branch == null ? null : new BranchRS.Data(branch.id(), branch.franchiseId(), branch.name()),
                 null
         );
-    }
-
-    private static MetaDataResponse meta(Transaction tx) {
-        var messageId = Optional.ofNullable(tx.getHeaders()).map(h -> h.get("message-id")).orElse(null);
-        return MetaDataResponse.builder()
-                .messageId(messageId)
-                .requestDateTime(LocalDateTime.now().toString())
-                .applicationId("MsFranchises")
-                .build();
     }
 }

@@ -46,4 +46,5 @@ public class RenameBranchUseCase {
                 })
                 .switchIfEmpty(gateway.rename(tx));
     }
+
 }

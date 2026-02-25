@@ -3,7 +3,6 @@ package co.com.nequi.usecase.branch;
 import co.com.nequi.commons.exception.BusinessException;
 import co.com.nequi.commons.exception.messages.BusinessExceptionEnum;
 import co.com.nequi.dto.transaction.Transaction;
-import co.com.nequi.model.branch.Branch;
 import co.com.nequi.model.branch.command.BranchCreate;
 import co.com.nequi.model.branch.gateways.BranchGateway;
 import co.com.nequi.model.branch.query.BranchNameQuery;
@@ -36,9 +35,10 @@ public class CreateBranchUseCase {
                 .map(out -> {
                     out.setStatus(true);
                     out.setStatusCode(201);
-                    out.setResponse((Branch) out.getResponse());
+                    out.setResponse(out.getResponse());
                     return out;
                 })
                 .onErrorMap(UseCaseErrorMapper::map);
     }
+
 }

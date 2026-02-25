@@ -19,7 +19,9 @@ public final class TopStockOpenApi {
     private static final String SUMMARY = "Producto con más stock por sucursal";
     private static final String DESCRIPTION = "Retorna el producto con mayor stock por cada sucursal de una franquicia";
 
-    private TopStockOpenApi() { }
+    private TopStockOpenApi() {
+        // Not instance constructor
+    }
 
     public static Consumer<Builder> getOpenAPI() {
         return ops -> ops.tag(TAG)
@@ -38,4 +40,5 @@ public final class TopStockOpenApi {
                 .response(OpenApiDoc.getBusinessError())
                 .build();
     }
+
 }

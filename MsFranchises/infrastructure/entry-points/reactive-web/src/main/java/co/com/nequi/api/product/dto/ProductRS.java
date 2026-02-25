@@ -9,7 +9,7 @@ import java.util.List;
 public record ProductRS(
         MetaDataResponse meta,
         Data data,
-        @JsonInclude(JsonInclude.Include.NON_EMPTY) List<ErrorRes.Data> errors
-) {
-    public record Data(Long id, Long branchId, String name, Integer stock) { }
+        @JsonInclude(JsonInclude.Include.NON_EMPTY) List<ErrorRes.Data> errors) {
+    public record Data(Long id, Long branchId, String name, Integer stock) {
+    }
 }

@@ -11,4 +11,5 @@ public record MySQLConnectionProperties(
         Duration maxIdleTime,
         Duration maxLifeTime,
         int acquireRetry
-) { }
+) {
+}

@@ -53,6 +53,7 @@ entry-points:
     franchiseCreate: "franchises"
     franchiseRename: "franchises/{franchiseId}/name"
     topStockByFranchise: "franchises/{franchiseId}/products/top-stock"
+    franchiseTree: "franchises/tree"
 
     branchCreate: "franchises/{franchiseId}/branches"
     branchRename: "branches/{branchId}/name"
